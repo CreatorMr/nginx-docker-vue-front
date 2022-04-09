@@ -1,17 +1,36 @@
+<!--
+ * @Author: your name
+ * @Date: 2022-03-27 14:21:01
+ * @LastEditTime: 2022-03-27 14:28:36
+ * @LastEditors: Please set LastEditors
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: /vue-front/src/App.vue
+-->
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <ul>
+      <li v-for="item in users" :key="item.id">
+        {{ item.name }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import axios from 'axios'
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      users: []
+    }
+  },
+  mounted() {
+    axios.get('http://localhost:3000/api/users').then((res) => {
+      console.log(res, 'dd')
+      this.users = res.data
+    })
   }
 }
 </script>
